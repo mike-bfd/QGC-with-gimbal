@@ -535,6 +535,7 @@ VideoManager::isGStreamer()
             videoSource == VideoSettings::videoSource3DRSolo ||
             videoSource == VideoSettings::videoSourceParrotDiscovery ||
             videoSource == VideoSettings::videoSourceYuneecMantisG ||
+            videoSource == VideoSettings::videoSourceMPU5 ||
             autoStreamConfigured();
 #else
     return false;
@@ -695,6 +696,8 @@ VideoManager::_updateSettings(unsigned id)
         settingsChanged |= _updateVideoUri(0, QStringLiteral("udp://0.0.0.0:8888"));
     else if (source == VideoSettings::videoSourceYuneecMantisG)
         settingsChanged |= _updateVideoUri(0, QStringLiteral("rtsp://192.168.42.1:554/live"));
+    else if (source == VideoSettings::videoSourceMPU5)
+        settingsChanged |= _updateVideoUri(0, QStringLiteral("rtsp://172.26.1.1:9722/rtsp_video_stream"));
 
     return settingsChanged;
 }
