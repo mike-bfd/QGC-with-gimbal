@@ -697,7 +697,7 @@ VideoManager::_updateSettings(unsigned id)
     else if (source == VideoSettings::videoSourceYuneecMantisG)
         settingsChanged |= _updateVideoUri(0, QStringLiteral("rtsp://192.168.42.1:554/live"));
     else if (source == VideoSettings::videoSourceMPU5)
-        settingsChanged |= _updateVideoUri(0, QStringLiteral("rtsp://172.26.1.1:9722/rtsp_video_stream"));
+        settingsChanged |= _updateVideoUri(0, QStringLiteral("rtsp://%1:9722/rtsp_video_stream").arg(_videoSettings->rtspUrl()->rawValue().toString()));
 
     return settingsChanged;
 }

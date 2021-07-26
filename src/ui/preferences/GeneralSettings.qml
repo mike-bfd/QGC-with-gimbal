@@ -52,7 +52,8 @@ Rectangle {
     property bool   _isGst:                     QGroundControl.videoManager.isGStreamer
     property bool   _isUDP264:                  _isGst && _videoSource === _videoSettings.udp264VideoSource
     property bool   _isUDP265:                  _isGst && _videoSource === _videoSettings.udp265VideoSource
-    property bool   _isRTSP:                    _isGst && _videoSource === _videoSettings.rtspVideoSource
+    property bool   _isRTSP:                    _isGst && (_videoSource === _videoSettings.rtspVideoSource || _videoSource === _videoSettings.mpu5VideoSource)
+    //property bool   _isMPU5:                    _isGst && _videoSource === _videoSettings.mpu5VideoSource
     property bool   _isTCP:                     _isGst && _videoSource === _videoSettings.tcpVideoSource
     property bool   _isMPEGTS:                  _isGst && _videoSource === _videoSettings.mpegtsVideoSource
     property bool   _videoAutoStreamConfig:     QGroundControl.videoManager.autoStreamConfigured
