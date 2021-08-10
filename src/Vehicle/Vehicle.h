@@ -413,6 +413,7 @@ public:
     Q_INVOKABLE void gimbalPitchStep    (int direction);
     Q_INVOKABLE void gimbalYawStep      (int direction);
     Q_INVOKABLE void centerGimbal       ();
+    Q_INVOKABLE void gimbalDirStep      (double pitchdir, double yawdir);
     Q_INVOKABLE void forceArm           ();
 
     /// Sends PARAM_MAP_RC message to vehicle

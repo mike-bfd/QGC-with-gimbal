@@ -672,6 +672,14 @@ void Joystick::_handleAxis()
             }
             uint16_t shortButtons = static_cast<uint16_t>(buttonPressedBits & 0xFFFF);
             _activeVehicle->sendJoystickDataThreadSafe(roll, pitch, yaw, throttle, shortButtons);
+            //_activeVehicle->gimbalControlValue(gimbalPitch * 50, gimbalYaw * 50);
+            //_activeVehicle->gimbalYawStep(gimbalYaw * 50);
+            //_activeVehicle->gimbalPitchStep(gimbalPitch * 50);
+            if (gimbalPitch != 0 || gimbalYaw != 0){
+                _activeVehicle->gimbalDirStep(gimbalPitch * 40, gimbalYaw * 50);
+
+            }
+
         }
     }
 }

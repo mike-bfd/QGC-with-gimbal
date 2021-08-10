@@ -90,16 +90,18 @@ void VehicleBatteryFactGroup::handleMessageForFactGroupCreation(Vehicle* vehicle
 
 void VehicleBatteryFactGroup::handleMessage(Vehicle* vehicle, mavlink_message_t& message)
 {
-    switch (message.msgid) {
-    case MAVLINK_MSG_ID_HIGH_LATENCY:
-        _handleHighLatency(vehicle, message);
-        break;
-    case MAVLINK_MSG_ID_HIGH_LATENCY2:
-        _handleHighLatency2(vehicle, message);
-        break;
-    case MAVLINK_MSG_ID_BATTERY_STATUS:
-        _handleBatteryStatus(vehicle, message);
-        break;
+    if (message.compid == 1){
+        switch (message.msgid) {
+        case MAVLINK_MSG_ID_HIGH_LATENCY:
+            _handleHighLatency(vehicle, message);
+            break;
+        case MAVLINK_MSG_ID_HIGH_LATENCY2:
+            _handleHighLatency2(vehicle, message);
+            break;
+        case MAVLINK_MSG_ID_SYS_STATUS:
+            _handleBatteryStatus(vehicle, message);
+            break;
+        }
     }
 }
 
@@ -127,8 +129,10 @@ void VehicleBatteryFactGroup::_handleBatteryStatus(Vehicle* vehicle, mavlink_mes
 {
     mavlink_battery_status_t batteryStatus;
     mavlink_msg_battery_status_decode(&message, &batteryStatus);
+    mavlink_sys_status_t sysStatus;
+    mavlink_msg_sys_status_decode(&message, &sysStatus);
 
-    VehicleBatteryFactGroup* group = _findOrAddBatteryGroupById(vehicle, batteryStatus.id);
+    VehicleBatteryFactGroup* group = _findOrAddBatteryGroupById(vehicle, 0);
 
     double totalVoltage = qQNaN();
     for (int i=0; i<10; i++) {
@@ -149,7 +153,7 @@ void VehicleBatteryFactGroup::_handleBatteryStatus(Vehicle* vehicle, mavlink_mes
         }
         totalVoltage += cellVoltage;
     }
-
+    totalVoltage = static_cast<double>(sysStatus.voltage_battery) / 1000;
     group->function()->setRawValue          (batteryStatus.battery_function);
     group->type()->setRawValue              (batteryStatus.type);
     group->temperature()->setRawValue       (batteryStatus.temperature == INT16_MAX ?   qQNaN() : static_cast<double>(batteryStatus.temperature) / 100.0);

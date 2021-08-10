@@ -170,6 +170,7 @@ Item {
                 enabled:    controller.calibrating ? controller.skipEnabled : false
                 width:      ScreenTools.defaultFontPixelWidth * 10
                 onClicked:  controller.skipButtonClicked()
+                visible: false
             }
             QGCButton {
                 text:       qsTr("Cancel")
@@ -179,6 +180,7 @@ Item {
                     if(controller.calibrating)
                         controller.cancelButtonClicked()
                 }
+                visible: false
             }
             QGCButton {
                 id:         nextButton
@@ -187,6 +189,7 @@ Item {
                 text:       controller.calibrating ? qsTr("Next") : qsTr("Start")
                 width:      ScreenTools.defaultFontPixelWidth * 10
                 onClicked:  controller.nextButtonClicked()
+                visible: false
             }
         }
         // Status Text

@@ -670,7 +670,7 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
         _handleRCChannels(message);
         break;
     case MAVLINK_MSG_ID_BATTERY_STATUS:
-        _handleBatteryStatus(message);
+        //_handleBatteryStatus(message);
         break;
     case MAVLINK_MSG_ID_SYS_STATUS:
         _handleSysStatus(message);
@@ -3833,6 +3833,20 @@ void Vehicle::gimbalYawStep(int direction)
         double y = static_cast<double>(_curGimbalYaw + direction);
         gimbalControlValue(static_cast<double>(_curGimbalPitch), y);
     }
+}
+
+void Vehicle::gimbalDirStep(double pitchdir, double yawdir)
+{
+    if(_haveGimbalData) {
+        //qDebug() << "Yaw:" << _curGimbalYaw << direction << (_curGimbalYaw + direction);
+        double y = static_cast<double>(_curGimbalYaw + yawdir);
+        //qDebug() << "Pitch:" << _curGimbalPitch << direction << (_curGimbalPitch + direction);
+        double p = static_cast<double>(_curGimbalPitch + pitchdir);
+        gimbalControlValue(p, y);
+
+    }
+
+
 }
 
 void Vehicle::centerGimbal()
