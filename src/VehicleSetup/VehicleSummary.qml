@@ -103,7 +103,7 @@ Rectangle {
                         width:      _summaryBoxWidth
                         height:     ScreenTools.defaultFontPixelHeight * 13
                         color:      qgcPal.windowShade
-                        visible:    modelData.summaryQmlSource.toString() !== ""
+                        visible:    modelData.summaryQmlSource.toString() !== ""  && (modelData.setupSource.toString() !== "qrc:/qml/SensorsComponent.qml" || QGroundControl.mavlinkSystemID === 173)
                         border.width: 1
                         border.color: qgcPal.text
                         Component.onCompleted: {

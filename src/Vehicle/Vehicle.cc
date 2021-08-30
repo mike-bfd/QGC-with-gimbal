@@ -673,7 +673,9 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
         //_handleBatteryStatus(message);
         break;
     case MAVLINK_MSG_ID_SYS_STATUS:
-        _handleSysStatus(message);
+        if (message.compid != 154) {
+            _handleSysStatus(message);
+        }
         break;
     case MAVLINK_MSG_ID_RAW_IMU:
         emit mavlinkRawImu(message);

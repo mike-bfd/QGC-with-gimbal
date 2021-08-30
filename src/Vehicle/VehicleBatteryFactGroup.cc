@@ -90,7 +90,7 @@ void VehicleBatteryFactGroup::handleMessageForFactGroupCreation(Vehicle* vehicle
 
 void VehicleBatteryFactGroup::handleMessage(Vehicle* vehicle, mavlink_message_t& message)
 {
-    if (message.compid == 1){
+    if (message.compid != 154){
         switch (message.msgid) {
         case MAVLINK_MSG_ID_HIGH_LATENCY:
             _handleHighLatency(vehicle, message);

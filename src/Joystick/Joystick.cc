@@ -679,7 +679,7 @@ void Joystick::_handleAxis()
                 _activeVehicle->gimbalDirStep(gimbalPitch * 40, gimbalYaw * 50);
 
             }
-
+            emit axisValues(roll, pitch, yaw, throttle);
         }
     }
 }
